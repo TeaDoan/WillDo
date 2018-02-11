@@ -32,7 +32,14 @@
                             <outlet property="delegate" destination="Nep-kP-Ls2" id="Dfl-Xk-cTf"/>
                         </connections>
                     </tableView>
-                    <navigationItem key="navigationItem" title="WiDo " id="KVJ-vg-JtN"/>
+                    <navigationItem key="navigationItem" title="WiDo " id="KVJ-vg-JtN">
+                        <barButtonItem key="rightBarButtonItem" systemItem="add" id="X9R-By-KT6">
+                            <color key="tintColor" red="1" green="0.99998790029999995" blue="1" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
+                            <connections>
+                                <action selector="addButtonPressed:" destination="Nep-kP-Ls2" id="d6d-8M-17T"/>
+                            </connections>
+                        </barButtonItem>
+                    </navigationItem>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="UaI-RU-0gz" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>

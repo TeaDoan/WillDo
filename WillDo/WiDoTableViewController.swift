@@ -27,7 +27,7 @@ class WiDoTableViewController: UITableViewController {
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return itemsArray.count
     }
-    
+    //Mark: Table view delegate method
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
 //        let rowSelected = itemsArray[indexPath.row]
     
@@ -42,5 +42,27 @@ class WiDoTableViewController: UITableViewController {
         tableView.deselectRow(at: indexPath, animated: true)
         
        
+    }
+    // Add new  items
+    @IBAction func addButtonPressed(_ sender: UIBarButtonItem) {
+        var textField = UITextField()
+        let alert = UIAlertController(title: "Add New Wido Items ", message: "", preferredStyle: .alert)
+        let action = UIAlertAction(title: "Add Item", style: .default) { (action) in
+            // what will happen once users clicks Add Itme on UIAlert
+            self.itemsArray.append(textField.text!)
+            self.tableView.reloadData()
+            
+            
+            
+        }
+        alert.addTextField { (alertTextField) in
+            alertTextField.placeholder = "Creat new items"
+            textField = alertTextField
+            print(alertTextField.text)
+        }
+        
+        alert.addAction(action)
+        present(alert, animated: true, completion: nil)
+        
     }
 }
