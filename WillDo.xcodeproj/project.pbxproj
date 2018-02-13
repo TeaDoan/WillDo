@@ -12,6 +12,8 @@
 		B067CA0120300F9B00A086B5 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = B067C9FF20300F9B00A086B5 /* Main.storyboard */; };
 		B067CA0320300F9B00A086B5 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = B067CA0220300F9B00A086B5 /* Assets.xcassets */; };
 		B067CA0620300F9B00A086B5 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = B067CA0420300F9B00A086B5 /* LaunchScreen.storyboard */; };
+		B06EEE172032444F00041005 /* Item.swift in Sources */ = {isa = PBXBuildFile; fileRef = B06EEE162032444F00041005 /* Item.swift */; };
+		B06EEE1E20326F3700041005 /* DataModel.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = B06EEE1C20326F3700041005 /* DataModel.xcdatamodeld */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -22,6 +24,8 @@
 		B067CA0220300F9B00A086B5 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		B067CA0520300F9B00A086B5 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		B067CA0720300F9B00A086B5 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		B06EEE162032444F00041005 /* Item.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Item.swift; sourceTree = "<group>"; };
+		B06EEE1D20326F3700041005 /* DataModel.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = DataModel.xcdatamodel; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -55,13 +59,47 @@
 			isa = PBXGroup;
 			children = (
 				B067C9FB20300F9B00A086B5 /* AppDelegate.swift */,
+				B06EEE18203244A000041005 /* Model  */,
+				B06EEE1A2032456A00041005 /* Views  */,
+				B06EEE192032450100041005 /* Controllers  */,
+				B06EEE1B2032458D00041005 /* Supporting Files  */,
+			);
+			path = WillDo;
+			sourceTree = "<group>";
+		};
+		B06EEE18203244A000041005 /* Model  */ = {
+			isa = PBXGroup;
+			children = (
+				B06EEE162032444F00041005 /* Item.swift */,
+				B06EEE1C20326F3700041005 /* DataModel.xcdatamodeld */,
+			);
+			path = "Model ";
+			sourceTree = "<group>";
+		};
+		B06EEE192032450100041005 /* Controllers  */ = {
+			isa = PBXGroup;
+			children = (
 				B067C9FD20300F9B00A086B5 /* WiDoTableViewController.swift */,
+			);
+			path = "Controllers ";
+			sourceTree = "<group>";
+		};
+		B06EEE1A2032456A00041005 /* Views  */ = {
+			isa = PBXGroup;
+			children = (
 				B067C9FF20300F9B00A086B5 /* Main.storyboard */,
+			);
+			path = "Views ";
+			sourceTree = "<group>";
+		};
+		B06EEE1B2032458D00041005 /* Supporting Files  */ = {
+			isa = PBXGroup;
+			children = (
 				B067CA0220300F9B00A086B5 /* Assets.xcassets */,
 				B067CA0420300F9B00A086B5 /* LaunchScreen.storyboard */,
 				B067CA0720300F9B00A086B5 /* Info.plist */,
 			);
-			path = WillDo;
+			path = "Supporting Files ";
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -137,6 +175,8 @@
 			buildActionMask = 2147483647;
 			files = (
 				B067C9FE20300F9B00A086B5 /* WiDoTableViewController.swift in Sources */,
+				B06EEE1E20326F3700041005 /* DataModel.xcdatamodeld in Sources */,
+				B06EEE172032444F00041005 /* Item.swift in Sources */,
 				B067C9FC20300F9B00A086B5 /* AppDelegate.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -276,7 +316,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = S7CCUH8W47;
-				INFOPLIST_FILE = WillDo/Info.plist;
+				INFOPLIST_FILE = "$(SRCROOT)/WillDo/Supporting Files /Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.teadoan.WillDo;
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -291,7 +331,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = S7CCUH8W47;
-				INFOPLIST_FILE = WillDo/Info.plist;
+				INFOPLIST_FILE = "$(SRCROOT)/WillDo/Supporting Files /Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.teadoan.WillDo;
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -322,6 +362,19 @@
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
+
+/* Begin XCVersionGroup section */
+		B06EEE1C20326F3700041005 /* DataModel.xcdatamodeld */ = {
+			isa = XCVersionGroup;
+			children = (
+				B06EEE1D20326F3700041005 /* DataModel.xcdatamodel */,
+			);
+			currentVersion = B06EEE1D20326F3700041005 /* DataModel.xcdatamodel */;
+			path = DataModel.xcdatamodeld;
+			sourceTree = "<group>";
+			versionGroupType = wrapper.xcdatamodel;
+		};
+/* End XCVersionGroup section */
 	};
 	rootObject = B067C9F020300F9B00A086B5 /* Project object */;
 }
