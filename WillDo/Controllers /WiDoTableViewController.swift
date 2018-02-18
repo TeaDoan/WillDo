@@ -7,28 +7,33 @@
 //
 
 import UIKit
+import CoreData
 
 class WiDoTableViewController: UITableViewController {
     
     var itemsArray = [Item]()
+    var selectedCategory: Category? {
+        didSet{
+            loadItems()
+        }
+    }
     
-    let dataFilePath = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask).first?.appendingPathComponent("Items.plist")
+//    let dataFilePath = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask)
+    // this constant goes into the AppDeltgate and grabs thr persistant container then grabs the reference to the context for that persistant container
+    let context = (UIApplication.shared.delegate as! AppDelegate).persistentContainer.viewContext
     
     
 
     override func viewDidLoad() {
+        
         super.viewDidLoad()
         
-     
-        let newItem = Item()
-        newItem.tittle = "find money"
-        itemsArray.append(newItem)
         
-        let newItem1 = Item()
-        newItem.tittle = "find tea"
-        itemsArray.append(newItem1)
+//
+//       print(FileManager.default.urls(for: .documentDirectory, in: .userDomainMask))
+//
         
-        loadItems()
+        
     }
 
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
@@ -53,7 +58,7 @@ class WiDoTableViewController: UITableViewController {
          itemsArray[indexPath.row].done = !itemsArray[indexPath.row].done
         
         
-        saveItems()
+          saveItems()
         
         tableView.deselectRow(at: indexPath, animated: true)
         
@@ -64,14 +69,18 @@ class WiDoTableViewController: UITableViewController {
         
         var textField = UITextField()
         
-        let alert = UIAlertController(title: "Add New Wido Items ", message: "", preferredStyle: .alert)
+        let alert = UIAlertController(title: "Add New Wido  ", message: "", preferredStyle: .alert)
         
         let action = UIAlertAction(title: "Add Item", style: .default) { (action) in
             // what will happen once users clicks Add Itme on UIAlert
             
-            let newItem = Item()
+            let newItem = Item(context: self.context)
             
             newItem.tittle = textField.text!
+            
+            newItem.done = false
+            
+            newItem.parentCategory = self.selectedCategory
             
             self.itemsArray.append(newItem)
             
@@ -93,38 +102,60 @@ class WiDoTableViewController: UITableViewController {
         
     }
     func saveItems() {
-        
-        let encoder = PropertyListEncoder()
-        
+    
         do {
             
-            let data = try encoder.encode(itemsArray)
-            
-            try data.write(to: dataFilePath!)
+         try context.save()
             
         } catch {
             
-            print ("Error ecoding item array,\(error)")
+           print("Error saving context\(error)")
         }
         
-        self.tableView.reloadData()
+        tableView.reloadData()
         
         
     }
-    func loadItems(){
-        if let data = try? Data(contentsOf: dataFilePath!){
+    func loadItems(with request: NSFetchRequest<Item> = Item.fetchRequest()){
+        
+       
+        do {
+            try itemsArray = context.fetch(request)
+        } catch {
             
-            let decoder = PropertyListDecoder()
-            do {
+            print ("Error fetching data from context \(error)")
+        }
+        
+          tableView.reloadData()
+    }
+    
+    
+}
+
+extension WiDoTableViewController: UISearchBarDelegate {
+    
+    func searchBarSearchButtonClicked(_ searchBar: UISearchBar) {
+      
+        
+        let request: NSFetchRequest<Item> = Item.fetchRequest()
+        
+        request.predicate = NSPredicate(format: "tittle CONTAINS [cd] %@", searchBar.text!)
+        
+        request.sortDescriptors = [NSSortDescriptor(key: "tittle", ascending:true)]
+        
+        loadItems(with: request)
+       
+    }
+    func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {
+        
+        if searchBar.text?.count == 0 {
+            
+            loadItems()
+            
+            DispatchQueue.main.async {
                 
-                itemsArray = try decoder.decode([Item].self, from: data)
-            }  catch {
-                
-                print ("\(error)")
+                searchBar.resignFirstResponder()
             }
-            
-
-
         }
     }
 }
