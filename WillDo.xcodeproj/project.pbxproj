@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		5A4736A014774111D58D7D2D /* Pods_WillDo.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5BBBA5E38A5F9ACFEBE8C713 /* Pods_WillDo.framework */; };
 		B067C9FC20300F9B00A086B5 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = B067C9FB20300F9B00A086B5 /* AppDelegate.swift */; };
 		B067C9FE20300F9B00A086B5 /* WiDoTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B067C9FD20300F9B00A086B5 /* WiDoTableViewController.swift */; };
 		B067CA0120300F9B00A086B5 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = B067C9FF20300F9B00A086B5 /* Main.storyboard */; };
@@ -17,6 +18,8 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		02B20142E26A6D1869E6F9CA /* Pods-WillDo.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-WillDo.debug.xcconfig"; path = "Pods/Target Support Files/Pods-WillDo/Pods-WillDo.debug.xcconfig"; sourceTree = "<group>"; };
+		5BBBA5E38A5F9ACFEBE8C713 /* Pods_WillDo.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_WillDo.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		B067C9F820300F9B00A086B5 /* WillDo.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = WillDo.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		B067C9FB20300F9B00A086B5 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		B067C9FD20300F9B00A086B5 /* WiDoTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WiDoTableViewController.swift; sourceTree = "<group>"; };
@@ -26,6 +29,7 @@
 		B067CA0720300F9B00A086B5 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		B06EEE1D20326F3700041005 /* DataModel.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = DataModel.xcdatamodel; sourceTree = "<group>"; };
 		B06EEE4020379EA400041005 /* CategoryTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CategoryTableViewController.swift; sourceTree = "<group>"; };
+		CFF3587FF9EF85E40B36A743 /* Pods-WillDo.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-WillDo.release.xcconfig"; path = "Pods/Target Support Files/Pods-WillDo/Pods-WillDo.release.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -33,17 +37,28 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				5A4736A014774111D58D7D2D /* Pods_WillDo.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		34CC441579BF4B6C677DAC7B /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				5BBBA5E38A5F9ACFEBE8C713 /* Pods_WillDo.framework */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
 		B067C9EF20300F9B00A086B5 = {
 			isa = PBXGroup;
 			children = (
 				B067C9FA20300F9B00A086B5 /* WillDo */,
 				B067C9F920300F9B00A086B5 /* Products */,
+				F596DBB3F096302BC4721BD9 /* Pods */,
+				34CC441579BF4B6C677DAC7B /* Frameworks */,
 			);
 			sourceTree = "<group>";
 		};
@@ -102,6 +117,15 @@
 			path = "Supporting Files ";
 			sourceTree = "<group>";
 		};
+		F596DBB3F096302BC4721BD9 /* Pods */ = {
+			isa = PBXGroup;
+			children = (
+				02B20142E26A6D1869E6F9CA /* Pods-WillDo.debug.xcconfig */,
+				CFF3587FF9EF85E40B36A743 /* Pods-WillDo.release.xcconfig */,
+			);
+			name = Pods;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -109,9 +133,12 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = B067CA0A20300F9B00A086B5 /* Build configuration list for PBXNativeTarget "WillDo" */;
 			buildPhases = (
+				7540D2D0F4F0399EDB752278 /* [CP] Check Pods Manifest.lock */,
 				B067C9F420300F9B00A086B5 /* Sources */,
 				B067C9F520300F9B00A086B5 /* Frameworks */,
 				B067C9F620300F9B00A086B5 /* Resources */,
+				99F2C77EC68E164652E7EF57 /* [CP] Embed Pods Frameworks */,
+				4E6A71E550ED704909DB4E51 /* [CP] Copy Pods Resources */,
 			);
 			buildRules = (
 			);
@@ -168,6 +195,62 @@
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXResourcesBuildPhase section */
+
+/* Begin PBXShellScriptBuildPhase section */
+		4E6A71E550ED704909DB4E51 /* [CP] Copy Pods Resources */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "[CP] Copy Pods Resources";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-WillDo/Pods-WillDo-resources.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		7540D2D0F4F0399EDB752278 /* [CP] Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
+				"${PODS_ROOT}/Manifest.lock",
+			);
+			name = "[CP] Check Pods Manifest.lock";
+			outputPaths = (
+				"$(DERIVED_FILE_DIR)/Pods-WillDo-checkManifestLockResult.txt",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
+			showEnvVarsInLog = 0;
+		};
+		99F2C77EC68E164652E7EF57 /* [CP] Embed Pods Frameworks */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+				"${SRCROOT}/Pods/Target Support Files/Pods-WillDo/Pods-WillDo-frameworks.sh",
+				"${BUILT_PRODUCTS_DIR}/Realm/Realm.framework",
+				"${BUILT_PRODUCTS_DIR}/RealmSwift/RealmSwift.framework",
+			);
+			name = "[CP] Embed Pods Frameworks";
+			outputPaths = (
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Realm.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/RealmSwift.framework",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-WillDo/Pods-WillDo-frameworks.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+/* End PBXShellScriptBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
 		B067C9F420300F9B00A086B5 /* Sources */ = {
@@ -312,6 +395,7 @@
 		};
 		B067CA0B20300F9B00A086B5 /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 02B20142E26A6D1869E6F9CA /* Pods-WillDo.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
@@ -327,6 +411,7 @@
 		};
 		B067CA0C20300F9B00A086B5 /* Release */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = CFF3587FF9EF85E40B36A743 /* Pods-WillDo.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
