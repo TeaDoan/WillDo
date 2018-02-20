@@ -116,7 +116,14 @@ class WiDoTableViewController: UITableViewController {
         
         
     }
-    func loadItems(with request: NSFetchRequest<Item> = Item.fetchRequest()){
+    func loadItems(with request: NSFetchRequest<Item> = Item.fetchRequest(),predicate: NSPredicate? = nil){
+        
+        let categoryPredicate = NSCompoundPredicate(format: "parentCategory.name MATCHES %@",selectedCategory!.name!)
+        if let additonalPredicate = predicate {
+            request.predicate = NSCompoundPredicate(andPredicateWithSubpredicates: [categoryPredicate,additonalPredicate])
+        } else {
+            request.predicate = categoryPredicate
+        }
         
        
         do {
@@ -139,11 +146,11 @@ extension WiDoTableViewController: UISearchBarDelegate {
         
         let request: NSFetchRequest<Item> = Item.fetchRequest()
         
-        request.predicate = NSPredicate(format: "tittle CONTAINS [cd] %@", searchBar.text!)
+        let predicate = NSPredicate(format: "tittle CONTAINS [cd] %@", searchBar.text!)
         
         request.sortDescriptors = [NSSortDescriptor(key: "tittle", ascending:true)]
         
-        loadItems(with: request)
+        loadItems(with: request, predicate: predicate)
        
     }
     func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {
