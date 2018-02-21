@@ -10,8 +10,10 @@ import Foundation
 import RealmSwift
 
 class Item: Object {
+    // item class has 3 properties 
    @objc dynamic var title:String = ""
-   @objc dynamic var done :Bool = false
+   @objc dynamic var done:Bool = false
+    @objc dynamic var date:Date?
     
    
     

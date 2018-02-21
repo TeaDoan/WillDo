@@ -101,7 +101,8 @@ class WiDoTableViewController: UITableViewController {
                     {
                     let newItem = Item()
                     newItem.title  = textField.text!
-
+                    newItem.date = Date()
+                    
                     currentCategory.items.append(newItem)
                     }
                     
@@ -145,32 +146,27 @@ class WiDoTableViewController: UITableViewController {
 
 
 
-//extension WiDoTableViewController: UISearchBarDelegate {
-//
-//    func searchBarSearchButtonClicked(_ searchBar: UISearchBar) {
-//
-//
-//        let request: NSFetchRequest<Item> = Item.fetchRequest()
-//
-//        let predicate = NSPredicate(format: "tittle CONTAINS [cd] %@", searchBar.text!)
-//
-//        request.sortDescriptors = [NSSortDescriptor(key: "tittle", ascending:true)]
-//
-//        loadItems(with: request, predicate: predicate)
-//
-//    }
-//    func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {
-//
-//        if searchBar.text?.count == 0 {
-//
-//            loadItems()
-//
-//            DispatchQueue.main.async {
-//
-//                searchBar.resignFirstResponder()
-//            }
-//        }
-//    }
-//}
-//
+extension WiDoTableViewController: UISearchBarDelegate {
+
+    func searchBarSearchButtonClicked(_ searchBar: UISearchBar) {
+        // updating todoItems and fitler base on title of text on search bar ,and sorted ascending order
+        
+        todoItems = todoItems?.filter("title CONTAINS[Cd] %@", searchBar.text!).sorted(byKeyPath: "title", ascending: true)
+        
+        tableView.reloadData()
+    }
+    func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {
+
+        if searchBar.text?.count == 0 {
+
+            loadItems()
+
+            DispatchQueue.main.async {
+
+                searchBar.resignFirstResponder()
+            }
+        }
+    }
+}
+
 

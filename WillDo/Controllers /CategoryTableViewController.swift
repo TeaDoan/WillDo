@@ -11,22 +11,23 @@ import RealmSwift
 
 class CategoryTableViewController: UITableViewController {
     
-    
+    // initialize a new acess point to realm database
     let realm =  try! Realm()
     
+    // a colection of results that is category objects
+    
     var categories : Results<Category>?
-//    let context = (UIApplication.shared.delegate as! AppDelegate).persistentContainer.viewContext
-
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         
-       
+        // load up catagory data when first load the app
         
-//        let nib = UINib(nibName: "categoryCell", bundle: nil)
-//        self.tableView.register(nib, forCellReuseIdentifier:"categoryCell")
         loadCategory()
         
     }
+    
+    // Mark: - TableView Datasource Methods
     
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return categories?.count ?? 1
@@ -47,8 +48,11 @@ class CategoryTableViewController: UITableViewController {
         
     }
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        
         let destinationVC = segue.destination as! WiDoTableViewController
+        
         if let indexPath = tableView.indexPathForSelectedRow {
+            
             destinationVC.selectedCategory = categories?[indexPath.row]
             
         }
@@ -93,8 +97,9 @@ class CategoryTableViewController: UITableViewController {
     func save(category: Category) {
         
         do {
-            
+            // use realm.write to commit changes in the database
             try realm.write {
+            //with is add a new categhory to realm
                 realm.add(category)
             }
             
@@ -107,9 +112,10 @@ class CategoryTableViewController: UITableViewController {
     }
 
     func loadCategory(){
+        // set cagegories to look inside realm and fetch all the objects that belong to category data type
         
         categories = realm.objects(Category.self)
-        
+        // then reload user interface with new data
         tableView.reloadData()
     }
     

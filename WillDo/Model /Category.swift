@@ -10,11 +10,11 @@ import Foundation
 import RealmSwift
 
 class Category: Object {
-    
+    // Category is subclass of Object superclass in oder to save our data. It has a "name" property in this case.
     @objc dynamic var name:String = ""
     
      let items = List<Item>()
-    // forward relationship between Category and Items.
+    // forward relationship between Category and Items. Each category can have a number  of items 
 }
 
 
