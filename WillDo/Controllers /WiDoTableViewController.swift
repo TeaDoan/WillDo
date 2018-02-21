@@ -7,26 +7,31 @@
 //
 
 import UIKit
-import CoreData
+import RealmSwift
 
 class WiDoTableViewController: UITableViewController {
     
-    var itemsArray = [Item]()
+    var todoItems : Results<Item>?
+    
+    let realm = try! Realm()
+    
     var selectedCategory: Category? {
         didSet{
-            loadItems()
+            
+              loadItems()
         }
     }
     
 //    let dataFilePath = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask)
     // this constant goes into the AppDeltgate and grabs thr persistant container then grabs the reference to the context for that persistant container
-    let context = (UIApplication.shared.delegate as! AppDelegate).persistentContainer.viewContext
-    
+  
     
 
     override func viewDidLoad() {
         
         super.viewDidLoad()
+        
+        loadItems()
         
         
 //
@@ -40,25 +45,29 @@ class WiDoTableViewController: UITableViewController {
         
         let cell = tableView.dequeueReusableCell(withIdentifier: "ToDoItemCell", for: indexPath)
         
-        cell.textLabel?.text  = itemsArray[indexPath.row].tittle
-        
-        let item = itemsArray[indexPath.row]
-        
-        cell.accessoryType = item.done ? .checkmark : .none
-        
+        if let item = todoItems?[indexPath.row] {
+            
+            cell.textLabel?.text = item.title
+            
+            cell.accessoryType = item.done ? .checkmark : .none
+            
+        } else {
+            cell.textLabel?.text = "No item added"
+        }
+
         return cell
     }
     
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return itemsArray.count
+        return todoItems?.count ??  1
     }
     //Mark: Table view delegate method
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        
-         itemsArray[indexPath.row].done = !itemsArray[indexPath.row].done
-        
-        
-          saveItems()
+//
+//         todoItems[indexPath.row].done = !todoItems[indexPath.row].done
+//
+//
+//          saveItems()
         
         tableView.deselectRow(at: indexPath, animated: true)
         
@@ -68,103 +77,89 @@ class WiDoTableViewController: UITableViewController {
     @IBAction func addButtonPressed(_ sender: UIBarButtonItem) {
         
         var textField = UITextField()
-        
+
         let alert = UIAlertController(title: "Add New Wido  ", message: "", preferredStyle: .alert)
-        
-        let action = UIAlertAction(title: "Add Item", style: .default) { (action) in
-            // what will happen once users clicks Add Itme on UIAlert
+
+        let action = UIAlertAction(title: "Add Item", style: .default) { (action)  in
             
-            let newItem = Item(context: self.context)
+            if let currentCategory = self.selectedCategory {
+                
+                do
+                    
+                {  try self.realm.write
+                    {
+                    let newItem = Item()
+                    newItem.title  = textField.text!
+
+                    currentCategory.items.append(newItem)
+                    }
+                    
+                }
+                catch {
+                        print ("Error saving new item, \(error)")
+                    }
+                }
+               self.tableView.reloadData()
+            }
             
-            newItem.tittle = textField.text!
-            
-            newItem.done = false
-            
-            newItem.parentCategory = self.selectedCategory
-            
-            self.itemsArray.append(newItem)
-            
-            self.saveItems()
-            
-        }
-        
-        alert.addTextField { (alertTextField) in
-            
+
+            alert.addTextField { (alertTextField) in
+
             alertTextField.placeholder = "Creat new items"
-            
+
             textField = alertTextField
-           
+
         }
-        
+
         alert.addAction(action)
-        
+
         present(alert, animated: true, completion: nil)
         
     }
-    func saveItems() {
     
-        do {
-            
-         try context.save()
-            
-        } catch {
-            
-           print("Error saving context\(error)")
-        }
-        
-        tableView.reloadData()
-        
-        
-    }
-    func loadItems(with request: NSFetchRequest<Item> = Item.fetchRequest(),predicate: NSPredicate? = nil){
-        
-        let categoryPredicate = NSCompoundPredicate(format: "parentCategory.name MATCHES %@",selectedCategory!.name!)
-        if let additonalPredicate = predicate {
-            request.predicate = NSCompoundPredicate(andPredicateWithSubpredicates: [categoryPredicate,additonalPredicate])
-        } else {
-            request.predicate = categoryPredicate
-        }
-        
-       
-        do {
-            try itemsArray = context.fetch(request)
-        } catch {
-            
-            print ("Error fetching data from context \(error)")
-        }
-        
+    
+    
+    
+    
+    func loadItems(){
+
+        todoItems = selectedCategory?.items.sorted(byKeyPath: "title", ascending: true)
+
           tableView.reloadData()
     }
-    
-    
+
 }
 
-extension WiDoTableViewController: UISearchBarDelegate {
-    
-    func searchBarSearchButtonClicked(_ searchBar: UISearchBar) {
-      
-        
-        let request: NSFetchRequest<Item> = Item.fetchRequest()
-        
-        let predicate = NSPredicate(format: "tittle CONTAINS [cd] %@", searchBar.text!)
-        
-        request.sortDescriptors = [NSSortDescriptor(key: "tittle", ascending:true)]
-        
-        loadItems(with: request, predicate: predicate)
-       
-    }
-    func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {
-        
-        if searchBar.text?.count == 0 {
-            
-            loadItems()
-            
-            DispatchQueue.main.async {
-                
-                searchBar.resignFirstResponder()
-            }
-        }
-    }
-}
-    
+
+
+
+
+//extension WiDoTableViewController: UISearchBarDelegate {
+//
+//    func searchBarSearchButtonClicked(_ searchBar: UISearchBar) {
+//
+//
+//        let request: NSFetchRequest<Item> = Item.fetchRequest()
+//
+//        let predicate = NSPredicate(format: "tittle CONTAINS [cd] %@", searchBar.text!)
+//
+//        request.sortDescriptors = [NSSortDescriptor(key: "tittle", ascending:true)]
+//
+//        loadItems(with: request, predicate: predicate)
+//
+//    }
+//    func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {
+//
+//        if searchBar.text?.count == 0 {
+//
+//            loadItems()
+//
+//            DispatchQueue.main.async {
+//
+//                searchBar.resignFirstResponder()
+//            }
+//        }
+//    }
+//}
+//
 
