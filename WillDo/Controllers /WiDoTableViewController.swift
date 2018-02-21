@@ -63,11 +63,22 @@ class WiDoTableViewController: UITableViewController {
     }
     //Mark: Table view delegate method
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-//
-//         todoItems[indexPath.row].done = !todoItems[indexPath.row].done
-//
-//
-//          saveItems()
+        if let items = todoItems?[indexPath.row] {
+            
+            do  {
+                
+                try realm.write {
+                
+               items.done = !items.done
+                
+              }
+                }
+              catch {
+                print ("Error saving items,\(error)")
+            }
+        }
+              tableView.reloadData()
+
         
         tableView.deselectRow(at: indexPath, animated: true)
         
