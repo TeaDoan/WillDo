@@ -84,6 +84,26 @@ class WiDoTableViewController: UITableViewController {
         
        
     }
+    
+    override func tableView(_ tableView: UITableView, canEditRowAt indexPath: IndexPath) -> Bool {
+        return true
+    }
+    
+    
+    override func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCellEditingStyle, forRowAt indexPath: IndexPath) {
+        
+        if (editingStyle == .delete){
+            let itemSelected = todoItems?[indexPath.row]
+            try! self.realm.write({
+                self.realm.delete(itemSelected!)
+            })
+            
+            tableView.deleteRows(at:[indexPath], with: .automatic)
+            
+        }
+        tableView.reloadData()
+    }
+    
     // Add new  items
     @IBAction func addButtonPressed(_ sender: UIBarButtonItem) {
         

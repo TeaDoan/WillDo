@@ -57,9 +57,24 @@ class CategoryTableViewController: UITableViewController {
             
         }
     }
+    override func tableView(_ tableView: UITableView, canEditRowAt indexPath: IndexPath) -> Bool {
+        return true
+    }
     
- 
-    
+
+    override func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCellEditingStyle, forRowAt indexPath: IndexPath) {
+        
+        if (editingStyle == .delete){
+            let categorySelected = categories?[indexPath.row]
+            try! self.realm.write({
+                self.realm.delete(categorySelected!)
+            })
+            
+            tableView.deleteRows(at:[indexPath], with: .automatic)
+            
+        }
+         tableView.reloadData()
+    }
     
 
 
