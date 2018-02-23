@@ -8,6 +8,8 @@
 
 import UIKit
 import RealmSwift
+import ChameleonFramework 
+
 
 class CategoryTableViewController: UITableViewController {
     
@@ -20,7 +22,8 @@ class CategoryTableViewController: UITableViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        
+        tableView.rowHeight = 80.0
+        tableView.separatorStyle = .none
         // load up catagory data when first load the app
         
         loadCategory()
@@ -34,13 +37,31 @@ class CategoryTableViewController: UITableViewController {
     }
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         
+       
         
         let cell = tableView.dequeueReusableCell(withIdentifier: "CategoryCell", for: indexPath)
         
-         cell.textLabel?.text  = categories?[indexPath.row].name ?? "No category Added"
+        if let category = categories?[indexPath.row]
+        {
+            cell.backgroundColor = UIColor(hexString: category.colour )
+            
+            cell.textLabel?.text  = category.name
+            
+            cell.textLabel?.textColor = ContrastColorOf((UIColor(hexString: category.colour ))!, returnFlat: true)
+        
+        } else {
+            
+            cell.textLabel?.text = "No category added "
+            
+            cell.backgroundColor = UIColor.blue
+            
+            cell.textLabel?.textColor = UIColor.white 
+        
+        }
         
         return cell
     }
+        
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         
         performSegue(withIdentifier: "goToItems", sender: self)
@@ -90,6 +111,8 @@ class CategoryTableViewController: UITableViewController {
             let newCategory = Category()
             
             newCategory.name = textField.text!
+            newCategory.colour = UIColor.randomFlat.hexValue()
+           
             
             self.save(category: newCategory)
             
